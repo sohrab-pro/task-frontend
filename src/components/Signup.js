@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../api/config";
+import "../styles/Signup.css";
 
 const Signup = () => {
 	const [formData, setFormData] = useState({
@@ -60,116 +61,127 @@ const Signup = () => {
 	};
 
 	return (
-		<div className="container-fluid bg-light min-vh-100">
-			<div className="row justify-content-center align-items-center min-vh-100">
-				<div className="col-sm-12 col-md-6 col-lg-4">
-					<div className="card shadow-lg">
-						<div className="card-body p-5">
-							<h2 className="text-center mb-4">Create Account</h2>
+		<div className="login-wrapper">
+			<div className="background-shapes"></div>
 
-							{error && (
-								<div
-									className="alert alert-danger"
-									role="alert">
-									{error}
-								</div>
-							)}
+			<div className="login-container">
+				<div className="login-card card border-0 shadow-lg rounded-4 p-4">
+					<div className="card-body p-4">
+						<h1 className="welcome-text text-center mb-2">
+							Create Account
+						</h1>
+						<p className="text-center text-muted mb-4">
+							Start your journey with us
+						</p>
 
-							<form onSubmit={handleSubmit}>
-								<div className="mb-3">
-									<label
-										htmlFor="username"
-										className="form-label">
-										Username
-									</label>
-									<input
-										type="text"
-										className="form-control"
-										id="username"
-										name="username"
-										value={formData.username}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-								<div className="mb-3">
-									<label
-										htmlFor="email"
-										className="form-label">
-										Email
-									</label>
-									<input
-										type="text"
-										className="form-control"
-										id="email"
-										name="email"
-										value={formData.email}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-
-								<div className="mb-3">
-									<label
-										htmlFor="password"
-										className="form-label">
-										Password
-									</label>
-									<input
-										type="password"
-										className="form-control"
-										id="password"
-										name="password"
-										value={formData.password}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-
-								<div className="mb-3">
-									<label
-										htmlFor="confirmPassword"
-										className="form-label">
-										Confirm Password
-									</label>
-									<input
-										type="password"
-										className="form-control"
-										id="confirmPassword"
-										name="confirmPassword"
-										value={formData.confirmPassword}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-
+						{error && (
+							<div className="custom-alert">
+								<span>{error}</span>
 								<button
-									type="submit"
-									className="btn btn-primary w-100 mb-3"
-									disabled={loading}>
-									{loading ? (
-										<span>
-											<span
-												className="spinner-border spinner-border-sm me-2"
-												role="status"
-												aria-hidden="true"></span>
-											Creating account...
-										</span>
-									) : (
-										"Sign Up"
-									)}
-								</button>
-							</form>
+									type="button"
+									className="btn-close"
+									onClick={() => setError("")}
+									aria-label="Close"></button>
+							</div>
+						)}
 
-							<p className="text-center mt-3">
+						<form onSubmit={handleSubmit}>
+							<div className="mb-4">
+								<label
+									className="form-label"
+									htmlFor="username">
+									Username
+								</label>
+								<input
+									type="text"
+									className="form-control form-control-lg rounded-3"
+									id="username"
+									name="username"
+									value={formData.username}
+									onChange={handleChange}
+									placeholder="Choose a username"
+									required
+								/>
+							</div>
+
+							<div className="mb-4">
+								<label className="form-label" htmlFor="email">
+									Email
+								</label>
+								<input
+									type="email"
+									className="form-control form-control-lg rounded-3"
+									id="email"
+									name="email"
+									value={formData.email}
+									onChange={handleChange}
+									placeholder="Enter your email"
+									required
+								/>
+							</div>
+
+							<div className="mb-4">
+								<label
+									className="form-label"
+									htmlFor="password">
+									Password
+								</label>
+								<input
+									type="password"
+									className="form-control form-control-lg rounded-3"
+									id="password"
+									name="password"
+									value={formData.password}
+									onChange={handleChange}
+									placeholder="Create a password"
+									required
+								/>
+							</div>
+
+							<div className="mb-4">
+								<label
+									className="form-label"
+									htmlFor="confirmPassword">
+									Confirm Password
+								</label>
+								<input
+									type="password"
+									className="form-control form-control-lg rounded-3"
+									id="confirmPassword"
+									name="confirmPassword"
+									value={formData.confirmPassword}
+									onChange={handleChange}
+									placeholder="Confirm your password"
+									required
+								/>
+							</div>
+
+							<button
+								type="submit"
+								className="btn btn-custom-primary w-100 rounded-3 mb-4 text-white"
+								disabled={loading}>
+								{loading ? (
+									<span>
+										<span
+											className="spinner-border spinner-border-sm me-2"
+											role="status"
+											aria-hidden="true"></span>
+										Creating account...
+									</span>
+								) : (
+									"Create Account"
+								)}
+							</button>
+
+							<p className="text-center mb-0">
 								Already have an account?{" "}
 								<button
 									onClick={() => navigate("/login")}
-									className="btn btn-link p-0">
-									Login
+									className="login-link btn btn-link p-0">
+									Sign in
 								</button>
 							</p>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>

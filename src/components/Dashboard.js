@@ -5,6 +5,7 @@ import TaskRow from "./TaskRow";
 import DashboardCards from "./DashboardCards";
 import Navbar from "./Navbar";
 import AddTaskModal from "./AddTaskModal";
+import "../styles/Dashboard.css";
 
 const Dashboard = () => {
 	const navigate = useNavigate();
@@ -168,39 +169,6 @@ const Dashboard = () => {
 				</div>
 				<AddTaskModal showModal={showModal} closeModal={closeModal} />
 			</div>
-
-			<style>
-				{`
-                    .table > :not(caption) > * > * {
-                        padding: 1rem;
-                    }
-                    
-                    .table tbody tr {
-                        transition: all 0.2s ease;
-                    }
-                    
-                    .table tbody tr:hover {
-                        background-color: rgba(13, 110, 253, 0.04);
-                    }
-                    
-                    .card {
-                        transition: transform 0.2s ease;
-                    }
-                    
-                    .card:hover {
-                        transform: translateY(-2px);
-                    }
-                    
-                    .table-responsive {
-                        border-radius: 0.5rem;
-                    }
-                    
-                    .badge {
-                        font-size: 0.85rem;
-                        padding: 0.35em 0.85em;
-                    }
-                `}
-			</style>
 		</div>
 	);
 };
