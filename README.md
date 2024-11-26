@@ -2,7 +2,6 @@
 
 A modern React-based frontend application for the Task Management system. This application provides a user-friendly interface for managing tasks, with features like user authentication, task creation, editing, and deletion.
 
-![Task Management App]("/api/placeholder/800/400")
 
 ## Features
 
@@ -17,10 +16,9 @@ A modern React-based frontend application for the Task Management system. This a
 
 - React 18+
 - React Router v6
-- Axios for API requests
 - Local Storage for token management
 - CSS Modules for styling
-- React Icons
+- Bootstrap Icons
 
 ## Prerequisites
 
