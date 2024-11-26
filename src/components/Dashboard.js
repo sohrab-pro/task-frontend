@@ -4,6 +4,7 @@ import { API_BASE_URL } from "../api/config";
 import TaskRow from "./TaskRow";
 import DashboardCards from "./DashboardCards";
 import Navbar from "./Navbar";
+import AddTaskButton from "./AddTaskButton";
 
 const Dashboard = () => {
 	const navigate = useNavigate();
@@ -62,8 +63,13 @@ const Dashboard = () => {
 					/>
 					<div className="col-12">
 						<div className="card">
-							<div className="card-body">
-								<h5 className="card-title">Tasks</h5>
+							<div className="card-body row">
+								<div className="col-sm-6">
+									<h5 className="card-title">Tasks</h5>
+								</div>
+								<div className="col-sm-6 text-end">
+									<AddTaskButton />
+								</div>
 								<div className="table-responsive">
 									<table className="table">
 										<thead>
