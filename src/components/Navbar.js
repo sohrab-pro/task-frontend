@@ -10,7 +10,9 @@ const Navbar = ({ navigate }) => {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
 			<div className="container">
-				<span className="navbar-brand">Dashboard</span>
+				<a href="/" className="navbar-brand">
+					Dashboard
+				</a>
 				<button
 					className="navbar-toggler"
 					type="button"

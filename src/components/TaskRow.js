@@ -55,7 +55,6 @@ const TaskRow = ({ task, navigate, statusChangeHandler }) => {
 					<option value="pending">Pending</option>
 					<option value="in_progress">In Progress</option>
 				</select>
-				{/* <span className={`badge ${color}`}>{status}</span> */}
 			</td>
 			<td>
 				<button

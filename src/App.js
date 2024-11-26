@@ -4,6 +4,7 @@ import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import ViewTask from "./components/ViewTask";
 
 function App() {
 	return (
@@ -13,6 +14,14 @@ function App() {
 				element={
 					<PrivateRoute>
 						<Dashboard />
+					</PrivateRoute>
+				}
+			/>
+			<Route
+				path="/task/:id"
+				element={
+					<PrivateRoute>
+						<ViewTask />
 					</PrivateRoute>
 				}
 			/>
