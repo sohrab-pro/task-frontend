@@ -47,6 +47,7 @@ const Signup = () => {
 
 			if (response.ok) {
 				localStorage.setItem("token", data.token);
+				localStorage.setItem("username", formData.username);
 				navigate("/dashboard");
 			} else {
 				setError(data.error || "Signup failed");

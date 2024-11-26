@@ -1,15 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../api/config";
+import TaskRow from "./TaskRow";
 
 const Dashboard = () => {
 	const navigate = useNavigate();
 	const [user] = useState(localStorage.getItem("username") || "User");
+	const [tasks, setTasks] = useState([]);
+	const [totalTasks, setTotalTasks] = useState(0);
+	const [completedTasks, setCompletedTasks] = useState(0);
+	const [pendingTasks, setPendingTasks] = useState(0);
+	const [inProgressTasks, setInProgressTasks] = useState(0);
 
 	const handleLogout = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("username");
 		navigate("/login");
 	};
+
+	useEffect(() => {
+		const fetchTasks = async () => {
+			try {
+				const response = await fetch(`${API_BASE_URL}/tasks/`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Token ${localStorage.getItem("token")}`,
+					},
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					setTasks(data);
+					setTotalTasks(data.length);
+					setCompletedTasks(
+						data.filter((task) => task.status === "completed")
+							.length
+					);
+					setPendingTasks(
+						data.filter((task) => task.status === "pending").length
+					);
+					setInProgressTasks(
+						data.filter((task) => task.status === "in_progress")
+							.length
+					);
+				} else {
+					console.error("Error fetching tasks");
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchTasks();
+	}, []);
 
 	return (
 		<div className="min-vh-100 bg-light">
@@ -75,7 +118,7 @@ const Dashboard = () => {
 									</svg>
 									  Total Tasks
 								</h5>
-								<h2 className="card-text">0</h2>
+								<h2 className="card-text">{totalTasks}</h2>
 							</div>
 						</div>
 					</div>
@@ -95,7 +138,7 @@ const Dashboard = () => {
 									</svg>
 									  Completed
 								</h5>
-								<h2 className="card-text">0</h2>
+								<h2 className="card-text">{completedTasks}</h2>
 							</div>
 						</div>
 					</div>
@@ -114,7 +157,7 @@ const Dashboard = () => {
 									</svg>
 									  Pending
 								</h5>
-								<h2 className="card-text">0</h2>
+								<h2 className="card-text">{pendingTasks}</h2>
 							</div>
 						</div>
 					</div>
@@ -134,7 +177,7 @@ const Dashboard = () => {
 									</svg>
 									  In Progress
 								</h5>
-								<h2 className="card-text">0</h2>
+								<h2 className="card-text">{inProgressTasks}</h2>
 							</div>
 						</div>
 					</div>
@@ -154,34 +197,13 @@ const Dashboard = () => {
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>2024-03-26</td>
-												<td>bring milk</td>
-												<td>Created new order</td>
-												<td>
-													<span className="badge bg-success">
-														Completed
-													</span>
-												</td>
-												<td>
-													<button
-														className="btn btn-sm btn-icon btn-info"
-														onClick={() => {
-															navigate("/task/1");
-														}}>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															width="16"
-															height="16"
-															fill="currentColor"
-															className="bi bi-eye"
-															viewBox="0 0 16 16">
-															<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-															<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-														</svg>
-													</button>
-												</td>
-											</tr>
+											{tasks.map((task) => (
+												<TaskRow
+													key={task.id}
+													task={task}
+													navigate={navigate}
+												/>
+											))}
 										</tbody>
 									</table>
 								</div>
