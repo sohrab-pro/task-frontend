@@ -1,8 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { API_BASE_URL } from "../api/config";
 
-const TaskRow = ({ task, navigate }) => {
+const TaskRow = ({ task, navigate, statusChangeHandler }) => {
 	const [color, setColor] = useState("");
 	const [status, setStatus] = useState(task.status);
+
+	const taskChange = async (current_status, new_status) => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/tasks/${task.id}/`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Token ${localStorage.getItem("token")}`,
+				},
+				body: JSON.stringify({ status: new_status }),
+			});
+			if (response.ok) {
+				setStatus(new_status);
+				task.status = new_status;
+				statusChangeHandler(current_status, new_status);
+			} else {
+				console.log("Error updating task status");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
 		if (task.status === "completed") {
@@ -22,7 +45,17 @@ const TaskRow = ({ task, navigate }) => {
 			<td>{task.title}</td>
 			<td>{task.description}</td>
 			<td>
-				<span className={`badge ${color}`}>{status}</span>
+				<select
+					className={`badge ${color}`}
+					onChange={(event) =>
+						taskChange(task.status, event.target.value)
+					}
+					value={task.status}>
+					<option value="completed">Completed</option>
+					<option value="pending">Pending</option>
+					<option value="in_progress">In Progress</option>
+				</select>
+				{/* <span className={`badge ${color}`}>{status}</span> */}
 			</td>
 			<td>
 				<button

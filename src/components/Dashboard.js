@@ -14,6 +14,18 @@ const Dashboard = () => {
 	const [pendingTasks, setPendingTasks] = useState(0);
 	const [inProgressTasks, setInProgressTasks] = useState(0);
 
+	const statusChangeHandler = async (current_status, new_status) => {
+		const statusMap = {
+			completed: setCompletedTasks,
+			pending: setPendingTasks,
+			in_progress: setInProgressTasks,
+		};
+
+		if (statusMap[current_status])
+			statusMap[current_status]((prev) => prev - 1);
+		if (statusMap[new_status]) statusMap[new_status]((prev) => prev + 1);
+	};
+
 	useEffect(() => {
 		const fetchTasks = async () => {
 			try {
@@ -87,6 +99,9 @@ const Dashboard = () => {
 													key={task.id}
 													task={task}
 													navigate={navigate}
+													statusChangeHandler={
+														statusChangeHandler
+													}
 												/>
 											))}
 										</tbody>
