@@ -65,8 +65,8 @@ const Dashboard = () => {
 	return (
 		<div className="min-vh-100 bg-light">
 			<Navbar navigate={navigate} />
-			<div className="container py-4">
-				<div className="row">
+			<div className="container py-5">
+				<div className="row g-4">
 					<DashboardCards
 						totalTasks={totalTasks}
 						completedTasks={completedTasks}
@@ -74,36 +74,73 @@ const Dashboard = () => {
 						inProgressTasks={inProgressTasks}
 					/>
 					<div className="col-12">
-						<div className="card">
-							<div className="card-body row">
-								<div className="col-sm-6">
-									<h5 className="card-title">Tasks</h5>
+						<div className="card border-0 shadow-sm rounded-3">
+							<div className="card-body p-4">
+								<div className="row align-items-center mb-4">
+									<div className="col-sm-6">
+										<h5 className="card-title fs-4 fw-bold mb-0">
+											Tasks
+											<span className="badge bg-primary rounded-pill ms-2 fw-normal">
+												{totalTasks}
+											</span>
+										</h5>
+									</div>
+									<div className="col-sm-6 text-sm-end mt-3 mt-sm-0">
+										<AddTaskButton />
+									</div>
 								</div>
-								<div className="col-sm-6">
-									<AddTaskButton />
-								</div>
+
 								<div className="table-responsive">
-									<table className="table">
-										<thead>
+									<table className="table table-hover align-middle">
+										<thead className="table-light">
 											<tr>
-												<th>Date</th>
-												<th>Title</th>
-												<th>Description</th>
-												<th>Status</th>
-												<th>Action</th>
+												<th className="border-0 rounded-start">
+													Date
+												</th>
+												<th className="border-0">
+													Title
+												</th>
+												<th className="border-0">
+													Description
+												</th>
+												<th className="border-0">
+													Status
+												</th>
+												<th className="border-0 rounded-end text-end">
+													Action
+												</th>
 											</tr>
 										</thead>
 										<tbody>
-											{tasks.map((task) => (
-												<TaskRow
-													key={task.id}
-													task={task}
-													navigate={navigate}
-													statusChangeHandler={
-														statusChangeHandler
-													}
-												/>
-											))}
+											{tasks.length > 0 ? (
+												tasks.map((task) => (
+													<TaskRow
+														key={task.id}
+														task={task}
+														navigate={navigate}
+														statusChangeHandler={
+															statusChangeHandler
+														}
+													/>
+												))
+											) : (
+												<tr>
+													<td
+														colSpan="5"
+														className="text-center py-5 text-muted">
+														<div className="py-4">
+															<p className="mb-0 fs-5">
+																No tasks found
+															</p>
+															<p className="small mb-0">
+																Create your
+																first task to
+																get started
+															</p>
+														</div>
+													</td>
+												</tr>
+											)}
 										</tbody>
 									</table>
 								</div>
@@ -112,6 +149,39 @@ const Dashboard = () => {
 					</div>
 				</div>
 			</div>
+
+			<style>
+				{`
+                    .table > :not(caption) > * > * {
+                        padding: 1rem;
+                    }
+                    
+                    .table tbody tr {
+                        transition: all 0.2s ease;
+                    }
+                    
+                    .table tbody tr:hover {
+                        background-color: rgba(13, 110, 253, 0.04);
+                    }
+                    
+                    .card {
+                        transition: transform 0.2s ease;
+                    }
+                    
+                    .card:hover {
+                        transform: translateY(-2px);
+                    }
+                    
+                    .table-responsive {
+                        border-radius: 0.5rem;
+                    }
+                    
+                    .badge {
+                        font-size: 0.85rem;
+                        padding: 0.35em 0.85em;
+                    }
+                `}
+			</style>
 		</div>
 	);
 };
