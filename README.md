@@ -1,70 +1,209 @@
-# Getting Started with Create React App
+# Task Management Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React-based frontend application for the Task Management system. This application provides a user-friendly interface for managing tasks, with features like user authentication, task creation, editing, and deletion.
+
+![Task Management App]("/api/placeholder/800/400")
+
+## Features
+
+- 🔐 User Authentication (Login/Signup)
+- 📝 Create, Read, Update, and Delete Tasks
+- 🎯 Task Status Management
+- 📱 Responsive Design
+- 🌙 Clean and Modern UI
+- ⚡ Fast and Efficient Performance
+
+## Tech Stack
+
+- React 18+
+- React Router v6
+- Axios for API requests
+- Local Storage for token management
+- CSS Modules for styling
+- React Icons
+
+## Prerequisites
+
+- Node.js (v14+ recommended)
+- npm or yarn
+- Backend API server running
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/task-management-frontend.git
+cd task-management-frontend
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Create a `.env` file in the root directory and add your backend API URL:
+```env
+REACT_APP_API_URL=http://localhost:8000/api
+```
+
+4. Start the development server:
+```bash
+npm start
+# or
+yarn start
+```
+
+The application will be available at `http://localhost:3000`
+
+## Project Structure
+
+```
+src/
+├── components/         # Reusable components
+│   ├── Auth/          # Authentication related components
+│   ├── Tasks/         # Task related components
+│   └── UI/            # Generic UI components
+├── contexts/          # React contexts
+├── hooks/             # Custom hooks
+├── services/          # API services
+├── styles/            # Global styles and CSS modules
+└── utils/             # Utility functions
+```
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start`: Runs the app in development mode
+- `npm test`: Launches the test runner
+- `npm run build`: Builds the app for production
+- `npm run eject`: Ejects from create-react-app
 
-### `npm start`
+## Component Documentation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Authentication Components
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Login
+```jsx
+<Login onSuccess={handleLoginSuccess} />
+```
+Props:
+- `onSuccess`: Callback function called after successful login
 
-### `npm test`
+#### Signup
+```jsx
+<Signup onSuccess={handleSignupSuccess} />
+```
+Props:
+- `onSuccess`: Callback function called after successful signup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Task Components
 
-### `npm run build`
+#### TaskList
+```jsx
+<TaskList onTaskSelect={handleTaskSelect} />
+```
+Props:
+- `onTaskSelect`: Function to handle task selection
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### TaskForm
+```jsx
+<TaskForm task={selectedTask} onSubmit={handleSubmit} />
+```
+Props:
+- `task`: Task object for editing (optional)
+- `onSubmit`: Function to handle form submission
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## API Integration
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The frontend communicates with the backend API using Axios. All API calls are centralized in the `services` directory:
 
-### `npm run eject`
+```javascript
+// services/api.js
+import axios from 'axios';
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Token ${token}`;
+  }
+  return config;
+});
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## State Management
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The application uses React Context API for global state management. Authentication state and task data are managed through dedicated contexts:
 
-## Learn More
+```javascript
+// contexts/AuthContext.js
+export const AuthContext = React.createContext();
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+export const AuthProvider = ({ children }) => {
+  // Implementation
+};
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Environment Variables
 
-### Code Splitting
+| Variable | Description |
+|----------|-------------|
+| REACT_APP_API_URL | Backend API URL |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Deployment
 
-### Analyzing the Bundle Size
+1. Build the production version:
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Deploy the contents of the `build` directory to your hosting service.
 
-### Making a Progressive Web App
+Example deployment to Netlify:
+```bash
+npm install -g netlify-cli
+netlify deploy
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contributing
 
-### Advanced Configuration
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/AmazingFeature`
+3. Commit your changes: `git commit -m 'Add some AmazingFeature'`
+4. Push to the branch: `git push origin feature/AmazingFeature`
+5. Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Troubleshooting
 
-### Deployment
+Common issues and their solutions:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. **API Connection Issues**
+   - Verify the API URL in `.env` file
+   - Check if the backend server is running
+   - Verify CORS settings in the backend
 
-### `npm run build` fails to minify
+2. **Authentication Issues**
+   - Clear local storage
+   - Check if the token is being sent correctly
+   - Verify token expiration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Create React App team
+- React Router team
+- All other open-source contributors
