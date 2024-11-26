@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 
 const TaskRow = ({ task, navigate }) => {
 	const [color, setColor] = useState("");
+	const [status, setStatus] = useState(task.status);
 
 	useEffect(() => {
 		if (task.status === "completed") {
 			setColor("bg-success");
+			setStatus("Completed");
 		} else if (task.status === "pending") {
 			setColor("bg-danger");
+			setStatus("Pending");
 		} else {
 			setColor("bg-warning");
+			setStatus("In Progress");
 		}
 	}, [task.status]);
 	return (
@@ -18,7 +22,7 @@ const TaskRow = ({ task, navigate }) => {
 			<td>{task.title}</td>
 			<td>{task.description}</td>
 			<td>
-				<span className={`badge ${color}`}>{task.status}</span>
+				<span className={`badge ${color}`}>{status}</span>
 			</td>
 			<td>
 				<button
