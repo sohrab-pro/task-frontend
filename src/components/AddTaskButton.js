@@ -11,7 +11,7 @@ const AddTaskButton = () => {
 		<div>
 			<button
 				type="button"
-				className="btn btn-sm btn-primary"
+				className="btn btn-sm btn-primary float-end"
 				onClick={openModal}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

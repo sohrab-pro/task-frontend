@@ -67,7 +67,7 @@ const Dashboard = () => {
 								<div className="col-sm-6">
 									<h5 className="card-title">Tasks</h5>
 								</div>
-								<div className="col-sm-6 text-end">
+								<div className="col-sm-6">
 									<AddTaskButton />
 								</div>
 								<div className="table-responsive">
