@@ -30,8 +30,8 @@ A modern React-based frontend application for the Task Management system. This a
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/task-management-frontend.git
-cd task-management-frontend
+git clone https://github.com/sohrab-pro/task-frontend.git
+cd task_frontend
 ```
 
 2. Install dependencies:
@@ -55,117 +55,12 @@ yarn start
 
 The application will be available at `http://localhost:3000`
 
-## Project Structure
-
-```
-src/
-├── components/         # Reusable components
-│   ├── Auth/          # Authentication related components
-│   ├── Tasks/         # Task related components
-│   └── UI/            # Generic UI components
-├── contexts/          # React contexts
-├── hooks/             # Custom hooks
-├── services/          # API services
-├── styles/            # Global styles and CSS modules
-└── utils/             # Utility functions
-```
-
 ## Available Scripts
 
 - `npm start`: Runs the app in development mode
 - `npm test`: Launches the test runner
 - `npm run build`: Builds the app for production
 - `npm run eject`: Ejects from create-react-app
-
-## Component Documentation
-
-### Authentication Components
-
-#### Login
-```jsx
-<Login onSuccess={handleLoginSuccess} />
-```
-Props:
-- `onSuccess`: Callback function called after successful login
-
-#### Signup
-```jsx
-<Signup onSuccess={handleSignupSuccess} />
-```
-Props:
-- `onSuccess`: Callback function called after successful signup
-
-### Task Components
-
-#### TaskList
-```jsx
-<TaskList onTaskSelect={handleTaskSelect} />
-```
-Props:
-- `onTaskSelect`: Function to handle task selection
-
-#### TaskForm
-```jsx
-<TaskForm task={selectedTask} onSubmit={handleSubmit} />
-```
-Props:
-- `task`: Task object for editing (optional)
-- `onSubmit`: Function to handle form submission
-
-## API Integration
-
-The frontend communicates with the backend API using Axios. All API calls are centralized in the `services` directory:
-
-```javascript
-// services/api.js
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-});
-
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Token ${token}`;
-  }
-  return config;
-});
-```
-
-## State Management
-
-The application uses React Context API for global state management. Authentication state and task data are managed through dedicated contexts:
-
-```javascript
-// contexts/AuthContext.js
-export const AuthContext = React.createContext();
-
-export const AuthProvider = ({ children }) => {
-  // Implementation
-};
-```
-
-## Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| REACT_APP_API_URL | Backend API URL |
-
-## Deployment
-
-1. Build the production version:
-```bash
-npm run build
-```
-
-2. Deploy the contents of the `build` directory to your hosting service.
-
-Example deployment to Netlify:
-```bash
-npm install -g netlify-cli
-netlify deploy
-```
 
 ## Contributing
 
@@ -180,7 +75,7 @@ netlify deploy
 Common issues and their solutions:
 
 1. **API Connection Issues**
-   - Verify the API URL in `.env` file
+   - Verify the API URL in src/api/config.js file
    - Check if the backend server is running
    - Verify CORS settings in the backend
 
