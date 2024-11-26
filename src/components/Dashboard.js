@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../api/config";
 import TaskRow from "./TaskRow";
 import DashboardCards from "./DashboardCards";
 import Navbar from "./Navbar";
-import AddTaskButton from "./AddTaskButton";
+import AddTaskModal from "./AddTaskModal";
 
 const Dashboard = () => {
 	const navigate = useNavigate();
@@ -13,6 +13,10 @@ const Dashboard = () => {
 	const [completedTasks, setCompletedTasks] = useState(0);
 	const [pendingTasks, setPendingTasks] = useState(0);
 	const [inProgressTasks, setInProgressTasks] = useState(0);
+	const [showModal, setShowModal] = useState(false);
+
+	const openModal = () => setShowModal(true);
+	const closeModal = () => setShowModal(false);
 
 	const statusChangeHandler = async (current_status, new_status) => {
 		const statusMap = {
@@ -86,7 +90,21 @@ const Dashboard = () => {
 										</h5>
 									</div>
 									<div className="col-sm-6 text-sm-end mt-3 mt-sm-0">
-										<AddTaskButton />
+										<button
+											type="button"
+											className="btn btn-sm btn-primary float-end"
+											onClick={openModal}>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="22"
+												height="22"
+												fill="currentColor"
+												className="bi bi-plus"
+												viewBox="0 0 16 16">
+												<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+											</svg>
+											&nbsp;Add Task
+										</button>
 									</div>
 								</div>
 
@@ -148,6 +166,7 @@ const Dashboard = () => {
 						</div>
 					</div>
 				</div>
+				<AddTaskModal showModal={showModal} closeModal={closeModal} />
 			</div>
 
 			<style>
