@@ -3,7 +3,6 @@ import { API_BASE_URL } from "../api/config";
 
 const TaskRow = ({ task, navigate, statusChangeHandler }) => {
 	const [color, setColor] = useState("");
-	const [status, setStatus] = useState(task.status);
 
 	const taskChange = async (current_status, new_status) => {
 		try {
@@ -16,7 +15,6 @@ const TaskRow = ({ task, navigate, statusChangeHandler }) => {
 				body: JSON.stringify({ status: new_status }),
 			});
 			if (response.ok) {
-				setStatus(new_status);
 				task.status = new_status;
 				statusChangeHandler(current_status, new_status);
 			} else {
@@ -30,13 +28,10 @@ const TaskRow = ({ task, navigate, statusChangeHandler }) => {
 	useEffect(() => {
 		if (task.status === "completed") {
 			setColor("bg-success");
-			setStatus("Completed");
 		} else if (task.status === "pending") {
 			setColor("bg-danger");
-			setStatus("Pending");
 		} else {
 			setColor("bg-warning");
-			setStatus("In Progress");
 		}
 	}, [task.status]);
 	return (

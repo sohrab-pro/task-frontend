@@ -45,7 +45,7 @@ const ViewTask = () => {
 				if (response.status === 204) {
 					navigate(-1);
 				}
-				return response.json();
+				return response;
 			})
 			.then((data) => {})
 			.catch((error) => console.log(error));

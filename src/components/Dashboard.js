@@ -124,7 +124,7 @@ const Dashboard = () => {
 												<th className="border-0">
 													Status
 												</th>
-												<th className="border-0 rounded-end text-end">
+												<th className="border-0 rounded-end">
 													Action
 												</th>
 											</tr>
